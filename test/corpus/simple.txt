@@ -1,0 +1,157 @@
+=========
+Id
+=========
+
+((A : Type) => (x : A) => x : (A : Type) -> (x : A) -> A)
+
+---------
+
+(source_file
+  (term_annot
+    (term_lambda
+      (term_annot
+        (term_var)
+        (term_var))
+      (term_lambda
+        (term_annot
+          (term_var)
+          (term_var))
+        (term_var)))
+    (term_forall
+      (term_annot
+        (term_var)
+        (term_var))
+      (term_forall
+        (term_annot
+          (term_var)
+          (term_var))
+        (term_var)))))
+
+==========
+Binding
+==========
+
+((
+  zero : Nat = 0;
+  zero
+): Nat)
+
+----------
+
+(source_file
+  (term_annot
+    (term_semi
+      (term_bind
+        (term_annot
+          (term_var)
+          (term_var))
+        (term_number))
+      (term_var))
+    (term_var)))
+
+==========
+Let id
+==========
+
+((
+  id : (A : Type) -> (x : A) -> A = A => (x : A) => x;
+  id
+) : (A : Type) -> (x : A) -> A)
+
+----------
+
+(source_file
+  (term_annot
+    (term_semi
+      (term_bind
+        (term_annot
+          (term_var)
+          (term_forall
+            (term_annot
+              (term_var)
+              (term_var))
+            (term_forall
+              (term_annot
+                (term_var)
+                (term_var))
+              (term_var))))
+        (term_lambda
+          (term_var)
+          (term_lambda
+            (term_annot
+              (term_var)
+              (term_var))
+            (term_var))))
+      (term_var))
+    (term_forall
+      (term_annot
+        (term_var)
+        (term_var))
+      (term_forall
+        (term_annot
+          (term_var)
+          (term_var))
+        (term_var)))))
+
+==========
+bool
+==========
+
+(((A: Type) => (x : A) => (y : A) => A) : Type)
+
+----
+
+(source_file
+  (term_annot
+    (term_lambda
+      (term_annot
+        (term_var)
+        (term_var))
+      (term_lambda
+        (term_annot
+          (term_var)
+          (term_var))
+        (term_lambda
+          (term_annot
+            (term_var)
+            (term_var))
+          (term_var))))
+    (term_var)))
+
+================
+rank 2 propagate
+================
+
+Unit = (A : Type) -> (x : A) -> A;
+(u => u Unit u : (u : Unit) -> Unit)
+
+
+----------------
+
+(source_file
+  (term_semi
+    (term_bind
+      (term_var)
+      (term_forall
+        (term_annot
+          (term_var)
+          (term_var))
+        (term_forall
+          (term_annot
+            (term_var)
+            (term_var))
+          (term_var))))
+    (term_annot
+      (term_lambda
+        (term_var)
+        (term_apply
+          (term_apply
+            (term_var)
+            (term_var))
+          (term_var)))
+      (term_forall
+        (term_annot
+          (term_var)
+          (term_var))
+        (term_var)))))
+

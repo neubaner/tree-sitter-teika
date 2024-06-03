@@ -1,0 +1,370 @@
+{
+  "name": "teika",
+  "rules": {
+    "source_file": {
+      "type": "SYMBOL",
+      "name": "_term"
+    },
+    "_term": {
+      "type": "SYMBOL",
+      "name": "_term_rec_pair"
+    },
+    "_term_rec_pair": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_both"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "term_pair"
+        }
+      ]
+    },
+    "_term_rec_both": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term_semi_or_annot"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "term_both"
+        }
+      ]
+    },
+    "_term_semi_or_annot": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_annot"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "term_semi"
+        }
+      ]
+    },
+    "_term_rec_semi": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_funct"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "term_semi"
+        }
+      ]
+    },
+    "_term_rec_semi_bind": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_annot"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "term_bind"
+        }
+      ]
+    },
+    "_term_rec_annot": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_funct"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "term_annot"
+        }
+      ]
+    },
+    "_term_rec_funct": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_apply"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "term_forall"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "term_lambda"
+        }
+      ]
+    },
+    "_term_rec_apply": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term_atom"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "term_apply"
+        }
+      ]
+    },
+    "_term_atom": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "term_var"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "term_extension"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "term_string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "term_number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_term_parens"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "term_braces"
+        }
+      ]
+    },
+    "term_var": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z_][\\w_]*"
+    },
+    "term_extension": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "%"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[a-zA-Z_][\\w_]*"
+        }
+      ]
+    },
+    "term_forall": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_apply"
+        },
+        {
+          "type": "STRING",
+          "value": "->"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_funct"
+        }
+      ]
+    },
+    "term_lambda": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_apply"
+        },
+        {
+          "type": "STRING",
+          "value": "=>"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_funct"
+        }
+      ]
+    },
+    "term_apply": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_apply"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_term_atom"
+        }
+      ]
+    },
+    "term_pair": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_both"
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_pair"
+        }
+      ]
+    },
+    "term_both": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term_semi_or_annot"
+        },
+        {
+          "type": "STRING",
+          "value": "&"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_both"
+        }
+      ]
+    },
+    "term_bind": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_annot"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_semi"
+        }
+      ]
+    },
+    "term_semi": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_semi_bind"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_semi"
+        }
+      ]
+    },
+    "term_annot": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_funct"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_term_rec_annot"
+        }
+      ]
+    },
+    "term_string": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^\"]*"
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        }
+      ]
+    },
+    "term_number": {
+      "type": "PATTERN",
+      "value": "\\d+"
+    },
+    "_term_parens": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_term"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "term_braces": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_term"
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    }
+  },
+  "extras": [
+    {
+      "type": "PATTERN",
+      "value": "\\s+"
+    }
+  ],
+  "conflicts": [
+    [
+      "_term_rec_semi",
+      "_term_rec_annot"
+    ]
+  ],
+  "precedences": [],
+  "externals": [],
+  "inline": [],
+  "supertypes": []
+}
