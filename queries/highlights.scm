@@ -23,5 +23,22 @@
 
 (term_annot
   (term_var) @variable.parameter
-  (_)+ @type
+  (term_var) @type
+)
+
+(term_forall
+  (_)
+  (term_var) @variable.parameter
+)
+
+(term_apply
+  (term_var) @function.call
+  (_)
+)
+
+(term_bind
+  (term_annot
+    (term_var) @variable
+    (_)
+  )?
 )

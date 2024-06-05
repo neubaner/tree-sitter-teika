@@ -1,0 +1,24 @@
+Eq = (A : Type) => (x : A) => (y : A) =>
+  (P : (z : A) -> Type) -> (l : P x) -> P y;
+refl : (A : Type) -> (x : A) -> Eq A x x
+  = (A : Type) => (x : A) =>
+    (P : (z : A) -> Type) => (l : P x) => l;
+
+Nat = (A : Type) -> (z : A) -> (s : (acc : A) -> A) -> A;
+zero : Nat = (A : Type) => (z : A) => (s : (acc : A) -> A) => z;
+succ : (pred : Nat) -> Nat = (pred : Nat) =>
+  (A : Type) => (z : A) => (s : (acc : A) -> A) => s (pred A z s);
+one = succ zero;
+
+add = (a : Nat) => (b : Nat) => a Nat b succ;
+mul = (a : Nat) => (b : Nat) => a Nat zero ((n : Nat) => add n b);
+
+two = succ one;
+three = succ two;
+four = add two two;
+eight = add four four;
+sixteen = add eight eight;
+n256 = mul sixteen sixteen;
+sixteen_is_eight_times_two : Eq Nat sixteen (mul eight two)
+  = refl Nat sixteen;
+(refl Nat n256 : Eq Nat (mul (mul eight eight) four) n256)
