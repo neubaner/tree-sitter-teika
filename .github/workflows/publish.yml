@@ -1,0 +1,17 @@
+name: Publish NPM package
+
+on:
+  push:
+    tags: ["*"]
+
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: true
+
+jobs:
+  npm:
+    uses: tree-sitter/workflows/.github/workflows/package-npm.yml@main
+    with:
+      node-version: 20.13.1
+    secrets:
+      NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
