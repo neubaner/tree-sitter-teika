@@ -1,15 +1,20 @@
 {
   "name": "tree-sitter-teika",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.0",
+  "description": "Teika grammar for tree-sitte",
+  "main": "bindings/node",
   "types": "bindings/node",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "node-gyp-build",
     "prebuildify": "prebuildify --napi --strip"
   },
-  "keywords": [],
+  "keywords": [
+    "incremental",
+    "parsing",
+    "tree-sitter",
+    "teika"
+  ],
   "files": [
     "grammar.js",
     "binding.gyp",
@@ -18,8 +23,8 @@
     "queries/*",
     "src/**"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "Guilherme Neubaner <guilherme.neubaner@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "node-addon-api": "^7.1.0",
     "node-gyp-build": "^4.8.0"
@@ -39,7 +44,15 @@
   "tree-sitter": [
     {
       "scope": "source.teika",
+      "file-types": [
+        "te",
+        "tei"
+      ],
+      "highlights": [
+         "queries/highlights.scm"
+      ],
       "injection-regex": "^teika$"
     }
-  ]
+  ],
+  "packageManager": "pnpm@9.2.0+sha512.98a80fd11c2e7096747762304106432b3ddc67dcf54b5a8c01c93f68a2cd5e05e6821849522a06fb76284d41a2660d5e334f2ee3bbf29183bf2e739b1dafa771"
 }
